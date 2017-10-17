@@ -1,30 +1,28 @@
-{% load staticfiles %}
-<html>
-    <head>
-        <title>ESI Solution: IC.IDO information
-        </title>
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
-        <link rel="stylesheet" href="{% static 'css/blog.css' %}">
-        <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
-        
-    </head>
-    <body>
-            <div class="content container">
-                <div class="page-header"><h1>ESI Solution: IC.IDO information</h1></div>
-                    <div class="row">
-                        <div class="col-md-8">
-                            {% for post in posts %}
-                                <div class="post">
-                                    <div class="date">
-                                        <p>published: {{ post.published_date }}</p>
-                                    </div>
-                                    <h1><a href="">{{ post.title }}</a></h1>
-                                    <p>{{ post.text|linebreaksbr }}</p>
-                                </div>
-                            {% endfor %}
-                        </div>
-                    </div>
-                </div>
-    </body>
-</html>
+
+{% extends 'blog/base.html' %}
+
+{% block content %}
+    {% for post in posts %}
+        <div class="post">
+            <div class="date">
+                {{ post.published_date }}
+            </div>
+            <h1><a href="{% url 'post_detail' pk=post.pk %}">{{ post.title }}</a></h1>            
+            <p>{{ post.text|linebreaksbr }}</p>
+        </div>
+    {% endfor %}
+{% endblock %}
+
+
+<!--
+ url" 'post_detail' pk=post.pk 을 설명할 때가 왔군요! 는 장고 템플릿 태그을 말합니다. URL를 생성해 사용해봅시다.
+
+blog.views.post_detail는 post_detail 뷰 경로입니다. blog는 응용프로그램(디렉터리 blog)의 이름인 것을 꼭 기억하세요. views는 views.py파일명이에요. 
+마지막 부분 post_detail는 view 이름입니다.
+
+pk = post.pk이란 무엇일까요? pk는 데이터베이스의 각 레코드를 식별하는 기본키(Prmiary Key)의 줄임말 입니다. 
+Post 모델에서 기본키를 지정하지 않았기 때문에 장고는 pk라는 필드를 추가해 새로운 블로그 게시물이 추가될 때마다 그 값이 1,2,3 등으로 증가하게 됩니다.
+Post 객체의 다른 필드 (제목, 작성자 등)에 액세스하는 것과 같은 방식으로 post.pk를 작성하여 기본 키에 액세스합니다 
+post.pk를 써서 기본키에 접근할 수 있고 같은 방법으로 Post객체내 다른 필드(title, author)에도 접근할 수 있습니다!
+
+    -->
