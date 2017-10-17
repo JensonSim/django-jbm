@@ -1,9 +1,9 @@
-h1 a {
+h2 a {
     color: #FCA205;
 }
 postTitle {
-    padding-left:3px;
+    padding:3px;
 }
 postText {
-    padding-left: 15px;
+    padding: 15px;
 }
